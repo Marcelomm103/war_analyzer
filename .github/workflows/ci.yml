@@ -1,0 +1,92 @@
+name: war_analyzer CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Python 3.11 vision and package tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install system OCR dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes tesseract-ocr
+          tesseract --list-langs
+
+      - name: Install package and tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[vision,test,quality]" pip-audit==2.10.1
+
+      - name: Build package wheel
+        run: |
+          mkdir -p /tmp/war-wheels
+          python -m pip wheel --no-deps --wheel-dir /tmp/war-wheels .
+
+      - name: Compile and test
+        run: |
+          python -m compileall -q src
+          python -m pytest -q
+
+      - name: Lint, type-check, and audit
+        run: |
+          ruff check src tests
+          mypy
+          pip-audit --skip-editable
+
+  frontend:
+    name: TypeScript, React, and Vite
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: pwa/.nvmrc
+          cache: npm
+          cache-dependency-path: pwa/package-lock.json
+
+      - name: Install and validate
+        working-directory: pwa
+        run: |
+          npm ci
+          npm run typecheck
+          npm run build
+          npm audit --audit-level=high
+
+  secrets:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: gitleaks/gitleaks-action@v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_COMMENTS: "false"
