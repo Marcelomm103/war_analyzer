@@ -98,26 +98,76 @@ export type RulesVersion = string;
 export type RulesetId = string;
 export type SourceReferences7 = SourceReference[];
 export type ActivePlayerId = string | null;
+export type EventId = string;
+export type OutcomeSource = "simulation" | "site" | "physical_board";
+export type RequestId = string;
+export type Visibility = "public" | "private";
+export type AppliedChanceOutcomes = AppliedChanceOutcome[];
 export type ContractType2 = "full_game_state";
 export type DecisionPlayerId = string | null;
 export type DiscardPileCardIds = string[];
 export type DrawPileCardIds = string[];
+export type HandLimitDiscardCardIds = string[];
 export type TradeCount = number;
 export type JsonValue = unknown;
 export type GameId = string;
+export type HasConqueredTerritoryThisTurn = boolean;
 export type InitialPlacementOrder = string[];
 export type IsFinished = boolean;
 export type ArmyCount = number;
 export type OriginTerritoryId = string;
 export type TargetTerritoryId = string;
 export type MovedTransfers = MovementTransfer[];
-export type PhaseId = string;
+export type ActionId = string;
+export type AttackerDiceCount = number;
+export type AttackerPlayerId = string;
+export type ContractType3 = "pending_combat";
+export type DefenderDiceCount = number;
+export type OriginTerritoryId1 = string;
+export type RequestId1 = string;
+export type TargetTerritoryId1 = string;
+export type ActorPlayerId = string;
+export type ContractType4 = "pending_objective_check";
+export type EliminatedPlayerId = string | null;
+export type ResumeDecisionPlayerId = string;
+export type ResumePhaseId =
+  | "territory_claim"
+  | "initial_placement"
+  | "reinforcement"
+  | "reinforcement_placement"
+  | "attack"
+  | "occupation"
+  | "movement"
+  | "card_purchase"
+  | "card_discard"
+  | "turn_end";
+export type TerritoryId1 = string;
+export type AttackerPlayerId1 = string;
+export type ContractType5 = "pending_occupation";
+export type DefenderPlayerId = string;
+export type MaximumArmyCount = number;
+export type OriginTerritoryId2 = string;
+export type TargetTerritoryId2 = string;
+export type PhaseId =
+  | "territory_claim"
+  | "initial_placement"
+  | "reinforcement"
+  | "reinforcement_placement"
+  | "attack"
+  | "occupation"
+  | "objective_check"
+  | "movement"
+  | "card_purchase"
+  | "card_discard"
+  | "turn_end"
+  | "finished";
 export type HandCardIds = string[];
 export type ObjectiveFallbackId = string | null;
 export type ObjectiveId1 = string | null;
 export type PlayerId = string;
 export type ArmyCount1 = number;
 export type Color = string;
+export type EliminatedByPlayerId = string | null;
 export type IsEliminated = boolean;
 export type PlayerId1 = string;
 export type TerritoryCount = number;
@@ -148,17 +198,32 @@ export type RulesetId1 = string;
 export type StateVersion = number;
 export type ArmyCount2 = number;
 export type OwnerPlayerId = string | null;
-export type TerritoryId1 = string;
+export type TerritoryId2 = string;
 export type Territories1 = TerritoryState[];
 export type TurnNumber = number;
 export type TurnPlayerId = string | null;
+export type WinnerPlayerId = string | null;
 export type ActivePlayerId1 = string | null;
-export type ContractType3 = "public_game_state";
+export type AppliedChanceOutcomes1 = AppliedChanceOutcome[];
+export type ContractType6 = "public_game_state";
 export type DecisionPlayerId1 = string | null;
 export type GameId1 = string;
+export type HasConqueredTerritoryThisTurn1 = boolean;
 export type InitialPlacementOrder1 = string[];
 export type IsFinished1 = boolean;
-export type PhaseId1 = string;
+export type PhaseId1 =
+  | "territory_claim"
+  | "initial_placement"
+  | "reinforcement"
+  | "reinforcement_placement"
+  | "attack"
+  | "occupation"
+  | "objective_check"
+  | "movement"
+  | "card_purchase"
+  | "card_discard"
+  | "turn_end"
+  | "finished";
 export type Players1 = PublicPlayerState[];
 export type ReinforcementPools1 = ReinforcementPool[];
 export type RulesVersion2 = string;
@@ -167,57 +232,69 @@ export type StateVersion1 = number;
 export type Territories2 = TerritoryState[];
 export type TurnNumber1 = number;
 export type TurnPlayerId1 = string | null;
-export type ContractType4 = "player_observation";
+export type WinnerObjectiveFallbackId = string | null;
+export type WinnerObjectiveId = string | null;
+export type WinnerPlayerId1 = string | null;
+export type ContractType7 = "player_observation";
 export type GameId2 = string;
-export type ActionId = string;
-export type ActionSchemaVersion = "1.0.0";
-export type ActorPlayerId = string;
-export type ContractType5 = "action";
+export type ActionId1 = string;
+export type ActionSchemaVersion = "1.4.0";
+export type ActorPlayerId1 = string;
+export type ContractType8 = "action";
 export type ExpectedStateVersion = number;
 export type Operation =
   | ClaimTerritoryOperation
   | PlaceArmiesOperation
   | TradeCardsOperation
+  | DrawTerritoryCardOperation
+  | DiscardTerritoryCardOperation
   | AttackOperation
   | OccupyTerritoryOperation
   | MoveArmiesOperation
+  | EndPhaseOperation
   | EndTurnOperation;
 export type ActionType = "claim_territory";
-export type TerritoryId2 = string;
+export type TerritoryId3 = string;
 export type ActionType1 = "place_armies";
 export type PlacementPhase = "initial" | "reinforcement";
 /**
  * @minItems 1
+ * @maxItems 1
  */
-export type Placements = [ArmyPlacement, ...ArmyPlacement[]];
-export type ArmyCount3 = number;
+export type Placements = [ArmyPlacement];
+export type ArmyCount3 = 1;
 export type SourcePoolId = string | null;
-export type TerritoryId3 = string;
+export type TerritoryId4 = string;
 export type ActionType2 = "trade_cards";
 /**
  * @minItems 3
  * @maxItems 3
  */
 export type CardIds1 = [unknown, unknown, unknown];
-export type ActionType3 = "attack";
+export type ActionType3 = "draw_territory_card";
+export type ActionType4 = "discard_territory_card";
+export type CardId = string;
+export type ActionType5 = "attack";
 export type DiceCount = number;
-export type OriginTerritoryId1 = string;
-export type TargetTerritoryId1 = string;
-export type ActionType4 = "occupy_territory";
-export type ArmyCount4 = number;
-export type OriginTerritoryId2 = string;
-export type TargetTerritoryId2 = string;
-export type ActionType5 = "move_armies";
-export type ArmyCount5 = number;
 export type OriginTerritoryId3 = string;
 export type TargetTerritoryId3 = string;
-export type ActionType6 = "end_turn";
+export type ActionType6 = "occupy_territory";
+export type ArmyCount4 = number;
+export type OriginTerritoryId4 = string;
+export type TargetTerritoryId4 = string;
+export type ActionType7 = "move_armies";
+export type ArmyCount5 = number;
+export type OriginTerritoryId5 = string;
+export type TargetTerritoryId5 = string;
+export type ActionType8 = "end_phase";
+export type PhaseId2 = "reinforcement" | "attack" | "movement";
+export type ActionType9 = "end_turn";
 export type LegalActions = Action[];
-export type ObservationSchemaVersion = "1.0.0";
+export type ObservationSchemaVersion = "1.9.0";
 export type PlayerId3 = string;
-export type ActorPlayerId1 = string | null;
-export type ContractType6 = "game_event";
-export type EventId = string;
+export type ActorPlayerId2 = string | null;
+export type ContractType9 = "game_event";
+export type EventId1 = string;
 export type EventType = string;
 export type GameId3 = string;
 export type OccurredAt = string;
@@ -225,12 +302,12 @@ export type RulesVersion3 = string;
 export type SequenceNumber = number;
 export type StateHash = string | null;
 export type StateVersion2 = number;
-export type Visibility = "public" | "private" | "engine";
+export type Visibility1 = "public" | "private" | "engine";
 export type VisibleToPlayerIds = string[];
 export type RecentEvents = GameEvent[];
 export type StateVersion3 = number;
 export type CapturedAt = string;
-export type ContractType7 = "observed_board";
+export type ContractType10 = "observed_board";
 export type GeometryVersion = string;
 export type FrameId = string;
 export type Height = number;
@@ -251,19 +328,19 @@ export type Alternatives1 = string[];
 export type Confidence1 = number | null;
 export type Status1 = "known" | "unknown" | "ambiguous";
 export type Value1 = string | null;
-export type TerritoryId4 = string;
+export type TerritoryId5 = string;
 export type Territories3 = ObservedTerritory[];
 export type CanvasHeight = number;
 export type CanvasWidth = number;
-export type ContractType8 = "board_geometry";
+export type ContractType11 = "board_geometry";
 export type CoordinateSpace = "pixels" | "normalized";
 export type GeometryVersion1 = string;
 export type X1 = number;
 export type Y1 = number;
 export type Polygon = Point2D[];
-export type TerritoryId5 = string;
+export type TerritoryId6 = string;
 export type Territories4 = TerritoryGeometry[];
-export type ContractType9 = "player_knowledge_state";
+export type ContractType12 = "player_knowledge_state";
 export type GameId4 = string;
 export type FactId = string;
 export type KnownAt = string;
@@ -274,25 +351,26 @@ export type KnownFacts = KnownFact[];
 export type PlayerId4 = string;
 export type StateVersion5 = number;
 export type ConditionedOnEventIds = string[];
-export type ContractType10 = "belief_state";
+export type ContractType13 = "belief_state";
 export type GameId5 = string;
 export type HypothesisId = string;
 export type Probability = number;
 export type Hypotheses = BeliefHypothesis[];
 export type PlayerId5 = string;
 export type StateVersion6 = number;
-export type ContractType11 = "chance_request";
+export type ContractType14 = "chance_request";
 export type GameId6 = string;
-export type RequestId = string;
+export type RequestId2 = string;
 export type RequestType = "combat_dice" | "draw_card" | "shuffle_deck";
 export type RequestedByPlayerId = string | null;
-export type ContractType12 = "chance_outcome";
-export type EventId1 = string;
-export type RequestId1 = string;
-export type Visibility1 = "public" | "private";
+export type ContractType15 = "chance_outcome";
+export type EventId2 = string;
+export type OutcomeSource1 = "simulation" | "site" | "physical_board";
+export type RequestId3 = string;
+export type Visibility2 = "public" | "private";
 export type VisibleToPlayerIds1 = string[];
 export type CapturedAt1 = string;
-export type ContractType13 = "snapshot";
+export type ContractType16 = "snapshot";
 export type GameId7 = string;
 export type ReplayVersion = string;
 export type SnapshotId = string;
@@ -300,10 +378,10 @@ export type State = PublicGameState | FullGameState | PlayerObservation;
 export type StateHash1 = string;
 export type StateVersion7 = number;
 export type SubjectPlayerId = string | null;
-export type Visibility2 = "public" | "full" | "player_private";
+export type Visibility3 = "public" | "full" | "player_private";
 export type ApiVersion1 = "1.0.0";
 export type ContractSchemaVersion = "1.0";
-export type ContractType14 = "full_replay";
+export type ContractType17 = "full_replay";
 export type EntryType = "action";
 export type SequenceNumber1 = number;
 export type EntryType1 = "chance_outcome";
@@ -311,16 +389,45 @@ export type SequenceNumber2 = number;
 export type Entries = (ReplayActionEntry | ReplayChanceEntry)[];
 export type FinalStateHash = string;
 export type GameId8 = string;
+export type Outcome =
+  | (
+      | OfficialVictoryOutcome
+      | IndividualEliminationOutcome
+      | ResignationOutcome
+      | OperationalInterruptionOutcome
+      | TrainingTruncationOutcome
+    )
+  | null;
+export type OutcomeType = "official_victory";
+export type WinnerPlayerId2 = string;
+export type EliminatedPlayerId1 = string;
+export type OutcomeType1 = "individual_elimination";
+export type OutcomeType2 = "resignation";
+export type PlayerId6 = string;
+export type CauseCode = string;
+export type OutcomeType3 = "operational_interruption";
+export type LimitType = "turn_count" | "action_count" | "time_budget_ms";
+export type LimitValue = number;
+export type OutcomeType4 = "training_truncation";
 export type ReplayId = string;
 export type ReplayVersion1 = string;
 export type RulesVersion4 = string;
 export type RulesetId3 = string;
 export type ApiVersion2 = "1.0.0";
 export type ContractSchemaVersion1 = "1.0";
-export type ContractType15 = "public_replay";
+export type ContractType18 = "public_replay";
 export type Entries1 = (ReplayActionEntry | ReplayChanceEntry)[];
 export type FinalStateHash1 = string;
 export type GameId9 = string;
+export type Outcome1 =
+  | (
+      | OfficialVictoryOutcome
+      | IndividualEliminationOutcome
+      | ResignationOutcome
+      | OperationalInterruptionOutcome
+      | TrainingTruncationOutcome
+    )
+  | null;
 export type ReplayId1 = string;
 export type ReplayVersion2 = string;
 export type RulesVersion5 = string;
@@ -328,7 +435,7 @@ export type RulesetId4 = string;
 export type ActionEncodingVersion = string;
 export type ActionSchemaVersion1 = string;
 export type AgentId = string;
-export type ContractType16 = "agent_protocol";
+export type ContractType19 = "agent_protocol";
 export type DecisionBudgetMs = number;
 export type MemoryScope = "per_player";
 export type ObservationEncodingVersion = string;
@@ -336,12 +443,12 @@ export type ObservationSchemaVersion1 = string;
 export type ProtocolVersion = string;
 export type RngScope = "private_per_player";
 export type SupportedRulesetIds = string[];
-export type ContractType17 = "action_intent";
+export type ContractType20 = "action_intent";
 export type CreatedAt = string;
 export type ExpectedStateVersion1 = number;
 export type IntentId = string;
 export type Source2 = "agent" | "touch" | "voice" | "site" | "manual";
-export type ContractType18 = "execution_receipt";
+export type ContractType21 = "execution_receipt";
 export type ErrorCode = string | null;
 export type EventIds = string[];
 export type EvidenceIds = string[];
@@ -350,7 +457,7 @@ export type StateVersionAfter = number | null;
 export type StateVersionBefore = number;
 export type Status2 = "executed" | "rejected" | "uncertain";
 export type AcknowledgedAt = string;
-export type ContractType19 = "ack";
+export type ContractType22 = "ack";
 export type EvidenceIds1 = string[];
 export type IntentId2 = string;
 export type Message = string | null;
@@ -360,7 +467,7 @@ export type ActionSchemaVersion2 = string;
 export type RulesVersion6 = string;
 export type RulesetId5 = string;
 export type CompatibleRulesets = RulesetVersionReference[];
-export type ContractType20 = "policy_manifest";
+export type ContractType23 = "policy_manifest";
 export type DatasetId = string;
 export type DatasetVersion = string;
 export type DatasetVersions = DatasetVersionReference[];
@@ -376,7 +483,7 @@ export type ActionSchemaVersion3 = string;
 export type ApiVersion3 = string;
 export type ArtifactSha256 = string;
 export type ContractSchemaVersion2 = string;
-export type ContractType21 = "replay_manifest";
+export type ContractType24 = "replay_manifest";
 export type EventCount = number;
 export type ReplayId2 = string;
 export type ReplayVersion3 = string;
@@ -385,7 +492,7 @@ export type RulesetId6 = string;
 export type ActionEncodingVersion2 = string;
 export type ActionSchemaVersion4 = string;
 export type ArtifactSha2561 = string;
-export type ContractType22 = "dataset_manifest";
+export type ContractType25 = "dataset_manifest";
 export type DatasetId1 = string;
 export type DatasetVersion1 = string;
 export type ObservationEncodingVersion2 = string;
@@ -394,7 +501,7 @@ export type RecordCount = number;
 export type RulesVersion8 = string;
 export type RulesetId7 = string;
 export type SourceReplayVersions = string[];
-export type ContractType23 = "inference_config";
+export type ContractType26 = "inference_config";
 export type DecisionBudgetMs1 = number;
 export type InferenceConfigVersion1 = string;
 export type ModelVersion1 = string;
@@ -402,7 +509,7 @@ export type ActionEncodingVersion3 = string;
 export type ActionSchemaVersion5 = string;
 export type ApiVersion4 = string;
 export type ContractSchemaVersion3 = string;
-export type ContractType24 = "semantic_version_vector";
+export type ContractType27 = "semantic_version_vector";
 export type DatasetVersion2 = string;
 export type GeometryVersion2 = string;
 export type InferenceConfigVersion2 = string;
@@ -413,7 +520,7 @@ export type ReplayVersion4 = string;
 export type RulesVersion9 = string;
 export type ArtifactSha2562 = string;
 export type CertificateId = string;
-export type ContractType25 = "certificate_manifest";
+export type ContractType28 = "certificate_manifest";
 export type CriterionId = string;
 export type IssuedAt = string;
 export type Scope = "engine" | "policy" | "client" | "replay" | "dataset";
@@ -497,14 +604,19 @@ export interface Formulas {
 }
 export interface FullGameState {
   active_player_id: ActivePlayerId;
+  applied_chance_outcomes?: AppliedChanceOutcomes;
   contract_type: ContractType2;
   decision_player_id?: DecisionPlayerId;
   deck: DeckState;
   engine_random_state: JsonValue;
   game_id: GameId;
+  has_conquered_territory_this_turn?: HasConqueredTerritoryThisTurn;
   initial_placement_order?: InitialPlacementOrder;
   is_finished: IsFinished;
   movement_control?: MovementControl;
+  pending_combat?: PendingCombat | null;
+  pending_objective_check?: PendingObjectiveCheck | null;
+  pending_occupation?: PendingOccupation | null;
   phase_id: PhaseId;
   players: Players;
   random_streams_state?: RandomStreamsState | null;
@@ -515,10 +627,18 @@ export interface FullGameState {
   territories: Territories1;
   turn_number: TurnNumber;
   turn_player_id?: TurnPlayerId;
+  winner_player_id?: WinnerPlayerId;
+}
+export interface AppliedChanceOutcome {
+  event_id: EventId;
+  outcome_source: OutcomeSource;
+  request_id: RequestId;
+  visibility: Visibility;
 }
 export interface DeckState {
   discard_pile_card_ids: DiscardPileCardIds;
   draw_pile_card_ids: DrawPileCardIds;
+  hand_limit_discard_card_ids?: HandLimitDiscardCardIds;
   trade_count: TradeCount;
 }
 export interface MovementControl {
@@ -528,6 +648,32 @@ export interface MovementTransfer {
   army_count: ArmyCount;
   origin_territory_id: OriginTerritoryId;
   target_territory_id: TargetTerritoryId;
+}
+export interface PendingCombat {
+  action_id: ActionId;
+  attacker_dice_count: AttackerDiceCount;
+  attacker_player_id: AttackerPlayerId;
+  contract_type: ContractType3;
+  defender_dice_count: DefenderDiceCount;
+  origin_territory_id: OriginTerritoryId1;
+  request_id: RequestId1;
+  target_territory_id: TargetTerritoryId1;
+}
+export interface PendingObjectiveCheck {
+  actor_player_id: ActorPlayerId;
+  contract_type: ContractType4;
+  eliminated_player_id?: EliminatedPlayerId;
+  resume_decision_player_id: ResumeDecisionPlayerId;
+  resume_phase_id: ResumePhaseId;
+  territory_id: TerritoryId1;
+}
+export interface PendingOccupation {
+  attacker_player_id: AttackerPlayerId1;
+  contract_type: ContractType5;
+  defender_player_id: DefenderPlayerId;
+  maximum_army_count: MaximumArmyCount;
+  origin_territory_id: OriginTerritoryId2;
+  target_territory_id: TargetTerritoryId2;
 }
 export interface FullPlayerState {
   private: PlayerPrivateState;
@@ -542,6 +688,7 @@ export interface PlayerPrivateState {
 export interface PublicPlayerState {
   army_count: ArmyCount1;
   color: Color;
+  eliminated_by_player_id?: EliminatedByPlayerId;
   is_eliminated: IsEliminated;
   player_id: PlayerId1;
   territory_count: TerritoryCount;
@@ -570,16 +717,21 @@ export interface ReinforcementPool {
 export interface TerritoryState {
   army_count: ArmyCount2;
   owner_player_id: OwnerPlayerId;
-  territory_id: TerritoryId1;
+  territory_id: TerritoryId2;
 }
 export interface PublicGameState {
   active_player_id: ActivePlayerId1;
-  contract_type: ContractType3;
+  applied_chance_outcomes?: AppliedChanceOutcomes1;
+  contract_type: ContractType6;
   decision_player_id?: DecisionPlayerId1;
   game_id: GameId1;
+  has_conquered_territory_this_turn?: HasConqueredTerritoryThisTurn1;
   initial_placement_order?: InitialPlacementOrder1;
   is_finished: IsFinished1;
   movement_control?: MovementControl;
+  pending_combat?: PendingCombat | null;
+  pending_objective_check?: PendingObjectiveCheck | null;
+  pending_occupation?: PendingOccupation | null;
   phase_id: PhaseId1;
   players: Players1;
   reinforcement_pools?: ReinforcementPools1;
@@ -589,9 +741,12 @@ export interface PublicGameState {
   territories: Territories2;
   turn_number: TurnNumber1;
   turn_player_id?: TurnPlayerId1;
+  winner_objective_fallback_id?: WinnerObjectiveFallbackId;
+  winner_objective_id?: WinnerObjectiveId;
+  winner_player_id?: WinnerPlayerId1;
 }
 export interface PlayerObservation {
-  contract_type: ContractType4;
+  contract_type: ContractType7;
   game_id: GameId2;
   legal_actions: LegalActions;
   observation_schema_version: ObservationSchemaVersion;
@@ -602,16 +757,16 @@ export interface PlayerObservation {
   state_version: StateVersion3;
 }
 export interface Action {
-  action_id: ActionId;
+  action_id: ActionId1;
   action_schema_version: ActionSchemaVersion;
-  actor_player_id: ActorPlayerId;
-  contract_type: ContractType5;
+  actor_player_id: ActorPlayerId1;
+  contract_type: ContractType8;
   expected_state_version: ExpectedStateVersion;
   operation: Operation;
 }
 export interface ClaimTerritoryOperation {
   action_type: ActionType;
-  territory_id: TerritoryId2;
+  territory_id: TerritoryId3;
 }
 export interface PlaceArmiesOperation {
   action_type: ActionType1;
@@ -621,38 +776,49 @@ export interface PlaceArmiesOperation {
 export interface ArmyPlacement {
   army_count: ArmyCount3;
   source_pool_id?: SourcePoolId;
-  territory_id: TerritoryId3;
+  territory_id: TerritoryId4;
 }
 export interface TradeCardsOperation {
   action_type: ActionType2;
   card_ids: CardIds1;
 }
-export interface AttackOperation {
+export interface DrawTerritoryCardOperation {
   action_type: ActionType3;
-  dice_count: DiceCount;
-  origin_territory_id: OriginTerritoryId1;
-  target_territory_id: TargetTerritoryId1;
 }
-export interface OccupyTerritoryOperation {
+export interface DiscardTerritoryCardOperation {
   action_type: ActionType4;
-  army_count: ArmyCount4;
-  origin_territory_id: OriginTerritoryId2;
-  target_territory_id: TargetTerritoryId2;
+  card_id: CardId;
 }
-export interface MoveArmiesOperation {
+export interface AttackOperation {
   action_type: ActionType5;
-  army_count: ArmyCount5;
+  dice_count: DiceCount;
   origin_territory_id: OriginTerritoryId3;
   target_territory_id: TargetTerritoryId3;
 }
-export interface EndTurnOperation {
+export interface OccupyTerritoryOperation {
   action_type: ActionType6;
+  army_count: ArmyCount4;
+  origin_territory_id: OriginTerritoryId4;
+  target_territory_id: TargetTerritoryId4;
+}
+export interface MoveArmiesOperation {
+  action_type: ActionType7;
+  army_count: ArmyCount5;
+  origin_territory_id: OriginTerritoryId5;
+  target_territory_id: TargetTerritoryId5;
+}
+export interface EndPhaseOperation {
+  action_type: ActionType8;
+  phase_id: PhaseId2;
+}
+export interface EndTurnOperation {
+  action_type: ActionType9;
 }
 export interface GameEvent {
-  actor_player_id: ActorPlayerId1;
-  contract_type: ContractType6;
+  actor_player_id: ActorPlayerId2;
+  contract_type: ContractType9;
   data: Data;
-  event_id: EventId;
+  event_id: EventId1;
   event_type: EventType;
   game_id: GameId3;
   occurred_at: OccurredAt;
@@ -660,7 +826,7 @@ export interface GameEvent {
   sequence_number: SequenceNumber;
   state_hash?: StateHash;
   state_version: StateVersion2;
-  visibility: Visibility;
+  visibility: Visibility1;
   visible_to_player_ids?: VisibleToPlayerIds;
 }
 export interface Data {
@@ -668,7 +834,7 @@ export interface Data {
 }
 export interface ObservedBoard {
   captured_at: CapturedAt;
-  contract_type: ContractType7;
+  contract_type: ContractType10;
   geometry_version: GeometryVersion;
   image_regions: ImageRegions;
   observation_id: ObservationId;
@@ -688,7 +854,7 @@ export interface ObservedTerritory {
   army_count: ObservedValueAnnotatedIntFieldInfoAnnotationNoneTypeRequiredTrueMetadataGeGe0;
   evidence_region_ids: EvidenceRegionIds;
   owner: ObservedValueStr;
-  territory_id: TerritoryId4;
+  territory_id: TerritoryId5;
 }
 export interface ObservedValueAnnotatedIntFieldInfoAnnotationNoneTypeRequiredTrueMetadataGeGe0 {
   alternatives?: Alternatives;
@@ -705,7 +871,7 @@ export interface ObservedValueStr {
 export interface BoardGeometry {
   canvas_height: CanvasHeight;
   canvas_width: CanvasWidth;
-  contract_type: ContractType8;
+  contract_type: ContractType11;
   coordinate_space: CoordinateSpace;
   geometry_version: GeometryVersion1;
   territories: Territories4;
@@ -714,14 +880,14 @@ export interface TerritoryGeometry {
   center: Point2D;
   label_anchor?: Point2D | null;
   polygon?: Polygon;
-  territory_id: TerritoryId5;
+  territory_id: TerritoryId6;
 }
 export interface Point2D {
   x: X1;
   y: Y1;
 }
 export interface PlayerKnowledgeState {
-  contract_type: ContractType9;
+  contract_type: ContractType12;
   game_id: GameId4;
   known_facts: KnownFacts;
   player_id: PlayerId4;
@@ -737,7 +903,7 @@ export interface KnownFact {
 }
 export interface BeliefState {
   conditioned_on_event_ids: ConditionedOnEventIds;
-  contract_type: ContractType10;
+  contract_type: ContractType13;
   game_id: GameId5;
   hypotheses: Hypotheses;
   player_id: PlayerId5;
@@ -752,10 +918,10 @@ export interface Assignments {
   [k: string]: JsonValue;
 }
 export interface ChanceRequest {
-  contract_type: ContractType11;
+  contract_type: ContractType14;
   game_id: GameId6;
   parameters: Parameters;
-  request_id: RequestId;
+  request_id: RequestId2;
   request_type: RequestType;
   requested_by_player_id: RequestedByPlayerId;
 }
@@ -763,16 +929,17 @@ export interface Parameters {
   [k: string]: JsonValue;
 }
 export interface ChanceOutcome {
-  contract_type: ContractType12;
-  event_id: EventId1;
+  contract_type: ContractType15;
+  event_id: EventId2;
   outcome: JsonValue;
-  request_id: RequestId1;
-  visibility: Visibility1;
+  outcome_source: OutcomeSource1;
+  request_id: RequestId3;
+  visibility: Visibility2;
   visible_to_player_ids?: VisibleToPlayerIds1;
 }
 export interface Snapshot {
   captured_at: CapturedAt1;
-  contract_type: ContractType13;
+  contract_type: ContractType16;
   game_id: GameId7;
   replay_version?: ReplayVersion;
   snapshot_id: SnapshotId;
@@ -780,16 +947,17 @@ export interface Snapshot {
   state_hash: StateHash1;
   state_version: StateVersion7;
   subject_player_id: SubjectPlayerId;
-  visibility: Visibility2;
+  visibility: Visibility3;
 }
 export interface FullReplay {
   api_version: ApiVersion1;
   contract_schema_version: ContractSchemaVersion;
-  contract_type: ContractType14;
+  contract_type: ContractType17;
   entries?: Entries;
   final_state_hash: FinalStateHash;
   game_id: GameId8;
   initial_snapshot: Snapshot;
+  outcome?: Outcome;
   replay_id: ReplayId;
   replay_version: ReplayVersion1;
   rules_version: RulesVersion4;
@@ -805,14 +973,36 @@ export interface ReplayChanceEntry {
   outcome: ChanceOutcome;
   sequence_number: SequenceNumber2;
 }
+export interface OfficialVictoryOutcome {
+  outcome_type: OutcomeType;
+  winner_player_id: WinnerPlayerId2;
+}
+export interface IndividualEliminationOutcome {
+  eliminated_player_id: EliminatedPlayerId1;
+  outcome_type: OutcomeType1;
+}
+export interface ResignationOutcome {
+  outcome_type: OutcomeType2;
+  player_id: PlayerId6;
+}
+export interface OperationalInterruptionOutcome {
+  cause_code: CauseCode;
+  outcome_type: OutcomeType3;
+}
+export interface TrainingTruncationOutcome {
+  limit_type: LimitType;
+  limit_value: LimitValue;
+  outcome_type: OutcomeType4;
+}
 export interface PublicReplay {
   api_version: ApiVersion2;
   contract_schema_version: ContractSchemaVersion1;
-  contract_type: ContractType15;
+  contract_type: ContractType18;
   entries?: Entries1;
   final_state_hash: FinalStateHash1;
   game_id: GameId9;
   initial_snapshot: Snapshot;
+  outcome?: Outcome1;
   replay_id: ReplayId1;
   replay_version: ReplayVersion2;
   rules_version: RulesVersion5;
@@ -822,7 +1012,7 @@ export interface AgentProtocol {
   action_encoding_version: ActionEncodingVersion;
   action_schema_version: ActionSchemaVersion1;
   agent_id: AgentId;
-  contract_type: ContractType16;
+  contract_type: ContractType19;
   decision_budget_ms: DecisionBudgetMs;
   memory_scope: MemoryScope;
   observation_encoding_version: ObservationEncodingVersion;
@@ -833,14 +1023,14 @@ export interface AgentProtocol {
 }
 export interface ActionIntent {
   action: Action;
-  contract_type: ContractType17;
+  contract_type: ContractType20;
   created_at: CreatedAt;
   expected_state_version: ExpectedStateVersion1;
   intent_id: IntentId;
   source: Source2;
 }
 export interface ExecutionReceipt {
-  contract_type: ContractType18;
+  contract_type: ContractType21;
   error_code: ErrorCode;
   event_ids: EventIds;
   evidence_ids: EvidenceIds;
@@ -851,7 +1041,7 @@ export interface ExecutionReceipt {
 }
 export interface Ack {
   acknowledged_at: AcknowledgedAt;
-  contract_type: ContractType19;
+  contract_type: ContractType22;
   evidence_ids: EvidenceIds1;
   intent_id: IntentId2;
   message: Message;
@@ -861,7 +1051,7 @@ export interface PolicyManifest {
   action_encoding_version: ActionEncodingVersion1;
   action_schema_version: ActionSchemaVersion2;
   compatible_rulesets: CompatibleRulesets;
-  contract_type: ContractType20;
+  contract_type: ContractType23;
   dataset_versions: DatasetVersions;
   inference_config_version: InferenceConfigVersion;
   model_version: ModelVersion;
@@ -893,7 +1083,7 @@ export interface ReplayManifest {
   api_version: ApiVersion3;
   artifact_sha256: ArtifactSha256;
   contract_schema_version: ContractSchemaVersion2;
-  contract_type: ContractType21;
+  contract_type: ContractType24;
   event_count: EventCount;
   replay_id: ReplayId2;
   replay_version: ReplayVersion3;
@@ -904,7 +1094,7 @@ export interface DatasetManifest {
   action_encoding_version: ActionEncodingVersion2;
   action_schema_version: ActionSchemaVersion4;
   artifact_sha256: ArtifactSha2561;
-  contract_type: ContractType22;
+  contract_type: ContractType25;
   dataset_id: DatasetId1;
   dataset_version: DatasetVersion1;
   observation_encoding_version: ObservationEncodingVersion2;
@@ -915,7 +1105,7 @@ export interface DatasetManifest {
   source_replay_versions: SourceReplayVersions;
 }
 export interface InferenceConfig {
-  contract_type: ContractType23;
+  contract_type: ContractType26;
   decision_budget_ms: DecisionBudgetMs1;
   inference_config_version: InferenceConfigVersion1;
   model_version: ModelVersion1;
@@ -933,7 +1123,7 @@ export interface SemanticVersionVector {
   action_schema_version: ActionSchemaVersion5;
   api_version: ApiVersion4;
   contract_schema_version: ContractSchemaVersion3;
-  contract_type: ContractType24;
+  contract_type: ContractType27;
   dataset_version: DatasetVersion2;
   geometry_version: GeometryVersion2;
   inference_config_version: InferenceConfigVersion2;
@@ -946,7 +1136,7 @@ export interface SemanticVersionVector {
 export interface CertificateManifest {
   artifact_sha256: ArtifactSha2562;
   certificate_id: CertificateId;
-  contract_type: ContractType25;
+  contract_type: ContractType28;
   criterion_id: CriterionId;
   issued_at: IssuedAt;
   scope: Scope;
